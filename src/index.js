@@ -47,10 +47,31 @@ function countVote(event) {
 
     newCharacter.votes += updatedVotes; 
     voteCount.textContent = newCharacter.votes;
-    
+
     event.target.reset()
+
+    fetch(`https://flatacuties-eight.vercel.app/characters/${newCharacter.id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ votes: newCharacter.votes }),
+    })
+    .then(response => response.json())
+    .then(updatedCharacter => console.log("Updated Character:", updatedCharacter))
+    .catch(err => console.error("Error updating votes:", err));
 }
 
 document.querySelector("#reset-btn").addEventListener("click", () => {
     newCharacter.votes = 0; 
     document.querySelector("#vote-count").textContent = 0;})
+    fetch(`https://flatacuties-eight.vercel.app/characters/${newCharacter.id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ votes: 0 }),
+    })
+    .then(response => response.json())
+    .then(updatedCharacter => console.log("Votes Reset:", updatedCharacter))
+    .catch(err => console.error("Error resetting votes:", err));
