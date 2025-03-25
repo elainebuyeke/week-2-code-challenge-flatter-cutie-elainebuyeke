@@ -67,7 +67,7 @@ As a user, I can:
 
    ```txt
    GET /characters/:id
-
+l
    Example Response:
    {
     "id": 1,
