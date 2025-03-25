@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 let characterBar = document.getElementById("character-bar");
-let currentCharacter = null;
+let newCharacter = null;
 
 function fetchCharacters() {
     fetch("https://flatacuties-eight.vercel.app/characters")
@@ -19,8 +19,8 @@ function fetchCharacters() {
                 characterBar.appendChild(span);
             });
 
-            currentCharacter = characters[0]; 
-            displayDetails(currentCharacter);
+            newCharacter = characters[0]; 
+            displayDetails(newCharacter);
         })
         .catch(err => console.error(err));
 }
@@ -28,7 +28,7 @@ function fetchCharacters() {
 
 
 function displayDetails(character) {
-    currentCharacter = character; 
+    newCharacter = character; 
 
     document.querySelector("#name").textContent = character.name;
     document.querySelector("#image").src = character.image;
@@ -45,10 +45,12 @@ function countVote(event) {
     let inputField = document.querySelector("#votes");
     let updatedVotes = parseInt(inputField.value, 10) || 0;
 
-    currentCharacter.votes += updatedVotes; 
-    voteCount.textContent = currentCharacter.votes;   
+    newCharacter.votes += updatedVotes; 
+    voteCount.textContent = newCharacter.votes;
+    
+    event.target.reset()
 }
 
 document.querySelector("#reset-btn").addEventListener("click", () => {
-    currentCharacter.votes = 0; 
+    newCharacter.votes = 0; 
     document.querySelector("#vote-count").textContent = 0;})
